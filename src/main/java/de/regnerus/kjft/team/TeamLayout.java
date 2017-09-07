@@ -1,4 +1,4 @@
-package hello.team;
+package de.regnerus.kjft.team;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;

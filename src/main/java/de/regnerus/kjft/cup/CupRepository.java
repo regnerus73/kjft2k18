@@ -1,4 +1,4 @@
-package hello.cup;
+package de.regnerus.kjft.cup;
 
 import java.util.List;
 

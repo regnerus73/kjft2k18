@@ -1,4 +1,4 @@
-package hello.cup;
+package de.regnerus.kjft.cup;
 
 import java.util.List;
 import java.util.Map.Entry;
@@ -9,8 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import hello.game.Game;
-import hello.team.Team;
+import de.regnerus.kjft.game.Game;
+import de.regnerus.kjft.team.Team;
 
 @Entity
 public class Cup {

@@ -1,4 +1,4 @@
-package hello.team;
+package de.regnerus.kjft.team;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import hello.gameResult.GameResult;
+import de.regnerus.kjft.gameresult.GameResult;
 
 @Entity
 public class Team {

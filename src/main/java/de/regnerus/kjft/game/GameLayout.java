@@ -1,4 +1,4 @@
-package hello.game;
+package de.regnerus.kjft.game;
 
 import org.springframework.util.StringUtils;
 

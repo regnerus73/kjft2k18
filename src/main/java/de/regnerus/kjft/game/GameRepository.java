@@ -1,4 +1,4 @@
-package hello.game;
+package de.regnerus.kjft.game;
 
 import java.util.List;
 
