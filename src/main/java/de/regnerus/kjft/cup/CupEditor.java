@@ -15,6 +15,8 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
+import de.regnerus.kjft.game.GameRepository;
+
 /**
  * A simple example to introduce building forms. As your real application is
  * probably much more complicated than this example, you could re-use this form
@@ -28,6 +30,7 @@ import com.vaadin.ui.themes.ValoTheme;
 @UIScope
 public class CupEditor extends VerticalLayout {
 
+	private GameRepository gameRepo;
 	private final CupRepository repository;
 
 	/**
@@ -47,8 +50,9 @@ public class CupEditor extends VerticalLayout {
 	Binder<Cup> binder = new Binder<>(Cup.class);
 
 	@Autowired
-	public CupEditor(CupRepository repository) {
+	public CupEditor(CupRepository repository, GameRepository gameRepo) {
 		this.repository = repository;
+		this.gameRepo = gameRepo;
 
 		addComponents(name, actions);
 
@@ -68,7 +72,7 @@ public class CupEditor extends VerticalLayout {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				// cup.addGame(new Game("blub"));
+				cup.addGame(gameRepo.findAll().get(0));
 				repository.save(CupEditor.this.cup);
 
 			}

@@ -1,10 +1,12 @@
 package de.regnerus.kjft.cup;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -21,8 +23,8 @@ public class Cup {
 
 	private String name;
 
-	@OneToMany
-	private List<Game> games;
+	@OneToMany(fetch = FetchType.EAGER)
+	private List<Game> games = new ArrayList<>();
 
 	protected Cup() {
 	}
@@ -65,6 +67,7 @@ public class Cup {
 	}
 
 	public void addGame(Game game) {
+
 		games.add(game);
 
 	}
