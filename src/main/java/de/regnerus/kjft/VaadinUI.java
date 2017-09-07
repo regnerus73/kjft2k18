@@ -1,18 +1,18 @@
-package hello;
+package de.regnerus.kjft;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
-import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.UI;
 
-import hello.game.GameEditor;
-import hello.game.GameLayout;
-import hello.game.GameRepository;
-import hello.team.TeamEditor;
-import hello.team.TeamLayout;
-import hello.team.TeamRepository;
+import de.regnerus.kjft.game.GameEditor;
+import de.regnerus.kjft.game.GameLayout;
+import de.regnerus.kjft.game.GameRepository;
+import de.regnerus.kjft.team.TeamEditor;
+import de.regnerus.kjft.team.TeamLayout;
+import de.regnerus.kjft.team.TeamRepository;
 
 @SpringUI
 public class VaadinUI extends UI {
@@ -35,9 +35,13 @@ public class VaadinUI extends UI {
 	protected void init(VaadinRequest request) {
 		// teamLayout.init();
 		// build layout
-		HorizontalLayout mainLayout = new HorizontalLayout(teamLayout.getLayout(), gameLayout.getLayout());
+		// HorizontalLayout mainLayout = new
+		// HorizontalLayout(teamLayout.getLayout(), gameLayout.getLayout());
+		TabSheet tabsheet = new TabSheet();
+		tabsheet.addTab(teamLayout.getLayout(), "Gruppen");
+		tabsheet.addTab(gameLayout.getLayout(), "Spiele");
 
-		setContent(mainLayout);
+		setContent(tabsheet);
 
 	}
 
