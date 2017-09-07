@@ -7,6 +7,9 @@ import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.UI;
 
+import de.regnerus.kjft.cup.CupEditor;
+import de.regnerus.kjft.cup.CupLayout;
+import de.regnerus.kjft.cup.CupRepository;
 import de.regnerus.kjft.game.GameEditor;
 import de.regnerus.kjft.game.GameLayout;
 import de.regnerus.kjft.game.GameRepository;
@@ -19,11 +22,14 @@ public class VaadinUI extends UI {
 
 	TeamLayout teamLayout;
 	GameLayout gameLayout;
+	CupLayout cupLayout;
 
 	@Autowired
-	public VaadinUI(TeamRepository teamRepo, TeamEditor teamEditor, GameRepository gameRepo, GameEditor gameEditor) {
+	public VaadinUI(TeamRepository teamRepo, TeamEditor teamEditor, GameRepository gameRepo, GameEditor gameEditor,
+			CupRepository cupRepo, CupEditor cupEditor) {
 		teamLayout = new TeamLayout(teamRepo, teamEditor);
 		gameLayout = new GameLayout(gameRepo, gameEditor);
+		cupLayout = new CupLayout(cupRepo, cupEditor);
 		// this.repo = repo;
 		// this.editor = editor;
 		// this.grid = new Grid<>(Team.class);
@@ -40,6 +46,7 @@ public class VaadinUI extends UI {
 		TabSheet tabsheet = new TabSheet();
 		tabsheet.addTab(teamLayout.getLayout(), "Gruppen");
 		tabsheet.addTab(gameLayout.getLayout(), "Spiele");
+		tabsheet.addTab(cupLayout.getLayout(), "Pokale");
 
 		setContent(tabsheet);
 

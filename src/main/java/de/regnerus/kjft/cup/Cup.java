@@ -64,4 +64,8 @@ public class Cup {
 		return "Cup [id=" + id + ", name=" + name + ", games=" + games + "]";
 	}
 
+	public void addGame(Game game) {
+		games.add(game);
+
+	}
 }
