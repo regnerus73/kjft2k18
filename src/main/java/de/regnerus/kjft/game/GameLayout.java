@@ -27,7 +27,7 @@ public class GameLayout {
 		this.editor = editor;
 		this.grid = new Grid<>(Game.class);
 		this.filter = new TextField();
-		this.addNewBtn = new Button("Neues Team", FontAwesome.PLUS);
+		this.addNewBtn = new Button("Neues Spiel", FontAwesome.PLUS);
 		this.actions = new HorizontalLayout(filter, addNewBtn);
 
 		init();
