@@ -57,8 +57,8 @@ public class CupEditor extends VerticalLayout {
 		addComponents(name, actions);
 
 		// bind using naming convention
-		// binder.forField(games).bind(cup, cup);
 		binder.bindInstanceFields(this);
+			
 
 		// Configure and style components
 		setSpacing(true);
@@ -67,7 +67,7 @@ public class CupEditor extends VerticalLayout {
 		save.setClickShortcut(ShortcutAction.KeyCode.ENTER);
 
 		// wire action buttons to save, delete and reset
-		// save.addClickListener(e -> repository.save(cup));
+//		 save.addClickListener(e -> repository.save(cup));
 		save.addClickListener(new ClickListener() {
 
 			@Override

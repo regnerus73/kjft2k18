@@ -7,6 +7,7 @@ import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.shared.ui.ValueChangeMode;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;
+import com.vaadin.ui.Grid.SelectionMode;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
@@ -36,7 +37,7 @@ public class CupLayout {
 	public void init() {
 		grid.setHeight(300, Unit.PIXELS);
 		grid.setColumns("id", "name");
-
+//		grid.setSelectionMode(SelectionMode.MULTI);
 		filter.setPlaceholder("Filter per Name");
 
 		// Hook logic to components
