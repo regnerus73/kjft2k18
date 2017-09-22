@@ -1,11 +1,10 @@
 Manifest-Version: 1.0
-Implementation-Title: gs-crud-with-vaadin
+Implementation-Title: kjft
 Implementation-Version: 0.1.0
-Built-By: regnerus
-Implementation-Vendor-Id: org.springframework
-Build-Jdk: 1.8.0_77
-Implementation-URL: http://projects.spring.io/spring-boot/gs-crud-with
- -vaadin/
+Built-By: rbruemmer
+Implementation-Vendor-Id: de.regnerus
+Build-Jdk: 1.8.0_92
+Implementation-URL: http://projects.spring.io/spring-boot/kjft/
 Created-By: Maven Integration for Eclipse
 Implementation-Vendor: Pivotal Software, Inc.
 

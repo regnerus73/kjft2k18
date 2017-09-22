@@ -5,12 +5,15 @@ import org.springframework.util.StringUtils;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.shared.ui.ValueChangeMode;
+import com.vaadin.ui.AbstractOrderedLayout;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.Grid.SelectionMode;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
+
+import de.regnerus.kjft.team.Team;
 
 public class CupLayout {
 	private final Button addNewBtn;
@@ -23,12 +26,16 @@ public class CupLayout {
 
 	private final CupRepository repo;
 
+	private VerticalLayout left;
+
+	private VerticalLayout right;
+
 	public CupLayout(CupRepository repo, CupEditor editor) {
 		this.repo = repo;
 		this.editor = editor;
 		this.grid = new Grid<>(Cup.class);
 		this.filter = new TextField();
-		this.addNewBtn = new Button("Neue Gruppe", FontAwesome.PLUS);
+		this.addNewBtn = new Button("Neuer Pokal", FontAwesome.PLUS);
 		this.actions = new HorizontalLayout(filter, addNewBtn);
 
 		init();
@@ -60,13 +67,16 @@ public class CupLayout {
 			listCustomers(filter.getValue());
 		});
 
-		layout = new VerticalLayout(actions, grid, editor);
+		left = new VerticalLayout(actions, grid, editor);
+		Grid<Team> teamGrid = new Grid<Team>();
+		right = new VerticalLayout(teamGrid);
+		layout = new HorizontalLayout(left, right);
 
 		// Initialize listing
 		listCustomers(null);
 	}
 
-	public VerticalLayout getLayout() {
+	public AbstractOrderedLayout getLayout() {
 		return layout;
 	}
 
@@ -82,6 +92,6 @@ public class CupLayout {
 
 	HorizontalLayout actions;
 
-	private VerticalLayout layout;
+	private AbstractOrderedLayout layout;
 
 }

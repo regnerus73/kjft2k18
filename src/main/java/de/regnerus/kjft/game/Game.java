@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -21,13 +22,17 @@ public class Game {
 
 	private String name;
 
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER)
 	private List<GameResult> results;
 
 	public void addResult(GameResult result) {
 		results.add(result);
 	}
 
+	public List<GameResult> getGameResults(){
+		return results;
+	}
+	
 	public Map<Team, Integer> getScoreByTeam() {
 		results.sort(new GameResult.ResultComparator());
 		HashMap<Team, Integer> scoreByTeam = new HashMap<Team, Integer>();

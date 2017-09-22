@@ -5,6 +5,7 @@ import org.springframework.util.StringUtils;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.shared.ui.ValueChangeMode;
+import com.vaadin.ui.AbstractOrderedLayout;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.HorizontalLayout;
@@ -22,6 +23,12 @@ public class GameLayout {
 
 	private final GameRepository repo;
 
+	private AbstractOrderedLayout left;
+
+	private AbstractOrderedLayout right;
+
+	private GameScoreLayout gameScoreLayout;
+
 	public GameLayout(GameRepository repo, GameEditor editor) {
 		this.repo = repo;
 		this.editor = editor;
@@ -33,7 +40,7 @@ public class GameLayout {
 		init();
 	}
 
-	public void init() {
+private void init() {
 		grid.setHeight(300, Unit.PIXELS);
 		grid.setColumns("id", "name");
 
@@ -48,6 +55,7 @@ public class GameLayout {
 		// Connect selected Customer to editor or hide if none is selected
 		grid.asSingleSelect().addValueChangeListener(e -> {
 			editor.editGame(e.getValue());
+			gameScoreLayout.setGame(e.getValue());
 		});
 
 		// Instantiate and edit new Customer the new button is clicked
@@ -59,13 +67,15 @@ public class GameLayout {
 			listCustomers(filter.getValue());
 		});
 
-		layout = new VerticalLayout(actions, grid, editor);
+		left = new VerticalLayout(actions, grid, editor);
+gameScoreLayout = new GameScoreLayout();
+		layout = new HorizontalLayout(left, gameScoreLayout.getLayout());
 
 		// Initialize listing
 		listCustomers(null);
 	}
 
-	public VerticalLayout getLayout() {
+	public AbstractOrderedLayout getLayout() {
 		return layout;
 	}
 
@@ -81,6 +91,6 @@ public class GameLayout {
 
 	HorizontalLayout actions;
 
-	private VerticalLayout layout;
+	private AbstractOrderedLayout layout;
 
 }
