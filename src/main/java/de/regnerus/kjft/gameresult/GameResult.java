@@ -19,13 +19,17 @@ public class GameResult {
 	@OneToOne
 	private Team team;
 
-	private Integer result;
+	private Integer result = 0;
 
 	public Integer getResult() {
 		return result;
 	}
 
-	protected GameResult() {
+	public void setResult(Integer result) {
+		this.result = result;
+	}
+
+	public GameResult() {
 	}
 
 	public GameResult(Team team, Integer result) {
@@ -52,6 +56,10 @@ public class GameResult {
 
 	public Team getTeam() {
 		return team;
+	}
+
+	public void setTeam(Team team) {
+		this.team = team;
 	}
 
 }

@@ -28,7 +28,7 @@ public class VaadinUI extends UI {
 	public VaadinUI(TeamRepository teamRepo, TeamEditor teamEditor, GameRepository gameRepo, GameEditor gameEditor,
 			CupRepository cupRepo, CupEditor cupEditor) {
 		teamLayout = new TeamLayout(teamRepo, teamEditor);
-		gameLayout = new GameLayout(gameRepo, gameEditor);
+		gameLayout = new GameLayout(gameRepo, gameEditor, teamRepo);
 		cupLayout = new CupLayout(cupRepo, cupEditor);
 		// this.repo = repo;
 		// this.editor = editor;

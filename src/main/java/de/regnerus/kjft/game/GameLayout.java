@@ -12,6 +12,8 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
+import de.regnerus.kjft.team.TeamRepository;
+
 public class GameLayout {
 	private final Button addNewBtn;
 
@@ -21,7 +23,7 @@ public class GameLayout {
 
 	final Grid<Game> grid;
 
-	private final GameRepository repo;
+	private final GameRepository gameRepository;
 
 	private AbstractOrderedLayout left;
 
@@ -29,8 +31,11 @@ public class GameLayout {
 
 	private GameScoreLayout gameScoreLayout;
 
-	public GameLayout(GameRepository repo, GameEditor editor) {
-		this.repo = repo;
+	private final TeamRepository teamRepository;
+
+	public GameLayout(GameRepository gameRepository, GameEditor editor, TeamRepository teamRepository) {
+		this.gameRepository = gameRepository;
+		this.teamRepository = teamRepository;
 		this.editor = editor;
 		this.grid = new Grid<>(Game.class);
 		this.filter = new TextField();
@@ -40,7 +45,7 @@ public class GameLayout {
 		init();
 	}
 
-private void init() {
+	private void init() {
 		grid.setHeight(300, Unit.PIXELS);
 		grid.setColumns("id", "name");
 
@@ -68,7 +73,7 @@ private void init() {
 		});
 
 		left = new VerticalLayout(actions, grid, editor);
-gameScoreLayout = new GameScoreLayout();
+		gameScoreLayout = new GameScoreLayout(gameRepository, teamRepository);
 		layout = new HorizontalLayout(left, gameScoreLayout.getLayout());
 
 		// Initialize listing
@@ -82,9 +87,9 @@ gameScoreLayout = new GameScoreLayout();
 	// tag::listCustomers[]
 	void listCustomers(String filterText) {
 		if (StringUtils.isEmpty(filterText)) {
-			grid.setItems(repo.findAll());
+			grid.setItems(gameRepository.findAll());
 		} else {
-			grid.setItems(repo.findByNameStartsWithIgnoreCase(filterText));
+			grid.setItems(gameRepository.findByNameStartsWithIgnoreCase(filterText));
 		}
 	}
 	// end::listCustomers[]

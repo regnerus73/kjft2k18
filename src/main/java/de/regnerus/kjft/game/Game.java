@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -22,17 +23,17 @@ public class Game {
 
 	private String name;
 
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
 	private List<GameResult> results;
 
 	public void addResult(GameResult result) {
 		results.add(result);
 	}
 
-	public List<GameResult> getGameResults(){
+	public List<GameResult> getGameResults() {
 		return results;
 	}
-	
+
 	public Map<Team, Integer> getScoreByTeam() {
 		results.sort(new GameResult.ResultComparator());
 		HashMap<Team, Integer> scoreByTeam = new HashMap<Team, Integer>();
