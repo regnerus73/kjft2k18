@@ -5,12 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.vaadin.data.Binder;
 import com.vaadin.data.converter.StringToIntegerConverter;
 import com.vaadin.event.ShortcutAction;
-import com.vaadin.server.FontAwesome;
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.NativeSelect;
 import com.vaadin.ui.TextField;
@@ -34,6 +32,7 @@ import de.regnerus.kjft.team.TeamRepository;
 @SpringComponent
 @UIScope
 public class GameResultEditor extends VerticalLayout {
+	private static final long serialVersionUID = 1L;
 
 	private final GameRepository gameRepository;
 
@@ -47,9 +46,9 @@ public class GameResultEditor extends VerticalLayout {
 	TextField resultField = new TextField();
 
 	/* Action buttons */
-	Button save = new Button("Speichern", FontAwesome.SAVE);
+	Button save = new Button("Speichern", VaadinIcons.SAFE);
 	Button cancel = new Button("Abbrechen");
-	Button delete = new Button("Löschen", FontAwesome.TRASH_O);
+	Button delete = new Button("Löschen", VaadinIcons.TRASH);
 	CssLayout actions = new CssLayout(save, cancel, delete);
 
 	Binder<GameResult> binder = new Binder<>(GameResult.class);
@@ -78,12 +77,9 @@ public class GameResultEditor extends VerticalLayout {
 		save.setClickShortcut(ShortcutAction.KeyCode.ENTER);
 
 		// wire action buttons to save, delete and reset
-		save.addClickListener(new ClickListener() {
-			@Override
-			public void buttonClick(ClickEvent e) {
-				game.addResult(gameResult);
-				repository.save(game);
-			}
+		save.addClickListener(e -> {
+			game.addResult(gameResult);
+			gameRepository.save(game);
 		});
 		// delete.addClickListener(e -> repository.delete(gameResult));
 		cancel.addClickListener(e -> editGameResult(null, null));

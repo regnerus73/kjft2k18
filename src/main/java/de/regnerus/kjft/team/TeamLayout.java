@@ -2,7 +2,7 @@ package de.regnerus.kjft.team;
 
 import org.springframework.util.StringUtils;
 
-import com.vaadin.server.FontAwesome;
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.shared.ui.ValueChangeMode;
 import com.vaadin.ui.Button;
@@ -27,7 +27,7 @@ public class TeamLayout {
 		this.editor = editor;
 		this.grid = new Grid<>(Team.class);
 		this.filter = new TextField();
-		this.addNewBtn = new Button("Neue Gruppe", FontAwesome.PLUS);
+		this.addNewBtn = new Button("Neue Gruppe", VaadinIcons.PLUS);
 		this.actions = new HorizontalLayout(filter, addNewBtn);
 
 		init();

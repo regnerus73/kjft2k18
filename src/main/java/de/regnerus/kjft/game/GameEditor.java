@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.data.Binder;
 import com.vaadin.event.ShortcutAction;
-import com.vaadin.server.FontAwesome;
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Button;
@@ -26,6 +26,8 @@ import com.vaadin.ui.themes.ValoTheme;
 @UIScope
 public class GameEditor extends VerticalLayout {
 
+	private static final long serialVersionUID = 1L;
+
 	private final GameRepository repository;
 
 	/**
@@ -37,9 +39,9 @@ public class GameEditor extends VerticalLayout {
 	TextField name = new TextField("Name");
 
 	/* Action buttons */
-	Button save = new Button("Speichern", FontAwesome.SAVE);
+	Button save = new Button("Speichern", VaadinIcons.SAFE);
 	Button cancel = new Button("Abbrechen");
-	Button delete = new Button("Löschen", FontAwesome.TRASH_O);
+	Button delete = new Button("Löschen", VaadinIcons.TRASH);
 	CssLayout actions = new CssLayout(save, cancel, delete);
 
 	Binder<Game> binder = new Binder<>(Game.class);

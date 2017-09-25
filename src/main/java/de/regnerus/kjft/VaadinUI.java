@@ -19,7 +19,7 @@ import de.regnerus.kjft.team.TeamRepository;
 
 @SpringUI
 public class VaadinUI extends UI {
-
+	private static final long serialVersionUID = 1L;
 	TeamLayout teamLayout;
 	GameLayout gameLayout;
 	CupLayout cupLayout;

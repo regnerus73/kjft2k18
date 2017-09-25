@@ -2,7 +2,7 @@ package de.regnerus.kjft.game;
 
 import org.springframework.util.StringUtils;
 
-import com.vaadin.server.FontAwesome;
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.shared.ui.ValueChangeMode;
 import com.vaadin.ui.AbstractOrderedLayout;
@@ -27,8 +27,6 @@ public class GameLayout {
 
 	private AbstractOrderedLayout left;
 
-	private AbstractOrderedLayout right;
-
 	private GameScoreLayout gameScoreLayout;
 
 	private final TeamRepository teamRepository;
@@ -39,7 +37,7 @@ public class GameLayout {
 		this.editor = editor;
 		this.grid = new Grid<>(Game.class);
 		this.filter = new TextField();
-		this.addNewBtn = new Button("Neues Spiel", FontAwesome.PLUS);
+		this.addNewBtn = new Button("Neues Spiel", VaadinIcons.PLUS);
 		this.actions = new HorizontalLayout(filter, addNewBtn);
 
 		init();

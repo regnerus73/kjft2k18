@@ -4,12 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.data.Binder;
 import com.vaadin.event.ShortcutAction;
-import com.vaadin.server.FontAwesome;
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
@@ -29,7 +27,7 @@ import de.regnerus.kjft.game.GameRepository;
 @SpringComponent
 @UIScope
 public class CupEditor extends VerticalLayout {
-
+	private static final long serialVersionUID = 1L;
 	private GameRepository gameRepo;
 	private final CupRepository repository;
 
@@ -42,9 +40,9 @@ public class CupEditor extends VerticalLayout {
 	TextField name = new TextField("Name");
 
 	/* Action buttons */
-	Button save = new Button("Speichern", FontAwesome.SAVE);
+	Button save = new Button("Speichern", VaadinIcons.SAFE);
 	Button cancel = new Button("Abbrechen");
-	Button delete = new Button("Löschen", FontAwesome.TRASH_O);
+	Button delete = new Button("Löschen", VaadinIcons.TRASH);
 	CssLayout actions = new CssLayout(save, cancel, delete);
 
 	Binder<Cup> binder = new Binder<>(Cup.class);
@@ -58,7 +56,6 @@ public class CupEditor extends VerticalLayout {
 
 		// bind using naming convention
 		binder.bindInstanceFields(this);
-			
 
 		// Configure and style components
 		setSpacing(true);
@@ -67,15 +64,10 @@ public class CupEditor extends VerticalLayout {
 		save.setClickShortcut(ShortcutAction.KeyCode.ENTER);
 
 		// wire action buttons to save, delete and reset
-//		 save.addClickListener(e -> repository.save(cup));
-		save.addClickListener(new ClickListener() {
-
-			@Override
-			public void buttonClick(ClickEvent event) {
-				cup.addGame(gameRepo.findAll().get(0));
-				repository.save(CupEditor.this.cup);
-
-			}
+		// save.addClickListener(e -> repository.save(cup));
+		save.addClickListener(event -> {
+			cup.addGame(this.gameRepo.findAll().get(0));
+			repository.save(CupEditor.this.cup);
 		});
 
 		delete.addClickListener(e -> repository.delete(cup));

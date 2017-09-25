@@ -1,6 +1,6 @@
 package de.regnerus.kjft.game;
 
-import com.vaadin.server.FontAwesome;
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.AbstractOrderedLayout;
 import com.vaadin.ui.Button;
@@ -19,7 +19,7 @@ public class GameScoreLayout {
 	private Game game;
 
 	public GameScoreLayout(GameRepository gameRepository, TeamRepository teamRepository) {
-		this.addNewBtn = new Button("Neues Ergebnis", FontAwesome.PLUS);
+		this.addNewBtn = new Button("Neues Ergebnis", VaadinIcons.PLUS);
 		addNewBtn.addClickListener(event -> gameResultEditor.editGameResult(game, new GameResult()));
 		getLayout().addComponent(addNewBtn);
 
