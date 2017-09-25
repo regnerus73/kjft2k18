@@ -12,6 +12,7 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
+import de.regnerus.kjft.gameresult.GameResultLayout;
 import de.regnerus.kjft.team.TeamRepository;
 
 public class GameLayout {
@@ -27,7 +28,7 @@ public class GameLayout {
 
 	private AbstractOrderedLayout left;
 
-	private GameScoreLayout gameScoreLayout;
+	private GameResultLayout gameResultLayout;
 
 	private final TeamRepository teamRepository;
 
@@ -58,7 +59,7 @@ public class GameLayout {
 		// Connect selected Customer to editor or hide if none is selected
 		grid.asSingleSelect().addValueChangeListener(e -> {
 			editor.editGame(e.getValue());
-			gameScoreLayout.setGame(e.getValue());
+			gameResultLayout.setGame(e.getValue());
 		});
 
 		// Instantiate and edit new Customer the new button is clicked
@@ -71,8 +72,8 @@ public class GameLayout {
 		});
 
 		left = new VerticalLayout(actions, grid, editor);
-		gameScoreLayout = new GameScoreLayout(gameRepository, teamRepository);
-		layout = new HorizontalLayout(left, gameScoreLayout.getLayout());
+		gameResultLayout = new GameResultLayout(gameRepository, teamRepository);
+		layout = new HorizontalLayout(left, gameResultLayout.getLayout());
 
 		// Initialize listing
 		listCustomers(null);

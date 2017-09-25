@@ -1,4 +1,4 @@
-package de.regnerus.kjft.game;
+package de.regnerus.kjft.gameresult;
 
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.Sizeable.Unit;
@@ -7,18 +7,18 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.VerticalLayout;
 
-import de.regnerus.kjft.gameresult.GameResult;
-import de.regnerus.kjft.gameresult.GameResultEditor;
+import de.regnerus.kjft.game.Game;
+import de.regnerus.kjft.game.GameRepository;
 import de.regnerus.kjft.team.TeamRepository;
 
-public class GameScoreLayout {
+public class GameResultLayout {
 	private final Button addNewBtn;
 	private AbstractOrderedLayout layout = new VerticalLayout();
 	private Grid<GameResult> resultGrid;
 	private GameResultEditor gameResultEditor;
 	private Game game;
 
-	public GameScoreLayout(GameRepository gameRepository, TeamRepository teamRepository) {
+	public GameResultLayout(GameRepository gameRepository, TeamRepository teamRepository) {
 		this.addNewBtn = new Button("Neues Ergebnis", VaadinIcons.PLUS);
 		addNewBtn.addClickListener(event -> gameResultEditor.editGameResult(game, new GameResult()));
 		getLayout().addComponent(addNewBtn);
@@ -33,7 +33,7 @@ public class GameScoreLayout {
 		getLayout().addComponent(gameResultEditor);
 	}
 
-	AbstractOrderedLayout getLayout() {
+	public AbstractOrderedLayout getLayout() {
 		return layout;
 	}
 
