@@ -3,6 +3,7 @@ package de.regnerus.kjft.gameresult;
 import java.util.Comparator;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -12,13 +13,49 @@ import de.regnerus.kjft.team.Team;
 @Entity
 public class GameResult {
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((this.result == null) ? 0 : this.result.hashCode());
+		result = prime * result + ((team == null) ? 0 : team.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		GameResult other = (GameResult) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (result == null) {
+			if (other.result != null)
+				return false;
+		} else if (!result.equals(other.result))
+			return false;
+		if (team == null) {
+			if (other.team != null)
+				return false;
+		} else if (!team.equals(other.team))
+			return false;
+		return true;
+	}
+
 	@Id
 	@GeneratedValue
 	private Long id;
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.EAGER)
 	private Team team;
-
 	private Integer result = 0;
 
 	public Integer getResult() {

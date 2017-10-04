@@ -72,4 +72,8 @@ public class Game {
 		return "Game [id=" + id + ", name=" + name + "]";
 	}
 
+	public void removeResult(GameResult gameResult) {
+		results.remove(gameResult);
+	}
+
 }

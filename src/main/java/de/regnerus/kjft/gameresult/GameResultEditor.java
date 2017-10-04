@@ -43,7 +43,7 @@ public class GameResultEditor extends VerticalLayout {
 
 	/* Fields to edit properties in Customer entity */
 	NativeSelect<Team> team = new NativeSelect<>("Gruppe");
-	TextField resultField = new TextField();
+	TextField resultField = new TextField("Ergebnis");
 
 	/* Action buttons */
 	Button save = new Button("Speichern", VaadinIcons.SAFE);
@@ -68,7 +68,7 @@ public class GameResultEditor extends VerticalLayout {
 
 		binder.forField(team).bind(GameResult::getTeam, GameResult::setTeam);
 
-		binder.bindInstanceFields(this);
+		// binder.bindInstanceFields(this);
 
 		// Configure and style components
 		setSpacing(true);
@@ -78,11 +78,16 @@ public class GameResultEditor extends VerticalLayout {
 
 		// wire action buttons to save, delete and reset
 		save.addClickListener(e -> {
-			game.addResult(gameResult);
+			if (gameResult.getId() == null)
+				game.addResult(gameResult);
 			gameRepository.save(game);
 		});
-		// delete.addClickListener(e -> repository.delete(gameResult));
+		delete.addClickListener(e -> {
+			game.removeResult(gameResult);
+			gameRepository.save(game);
+		});
 		cancel.addClickListener(e -> editGameResult(null, null));
+
 		setVisible(false);
 	}
 
@@ -103,13 +108,12 @@ public class GameResultEditor extends VerticalLayout {
 		// } else {
 		gameResult = result;
 		// }
-		cancel.setVisible(persisted);
+		// cancel.setVisible(true);
 
 		// Bind customer properties to similarly named fields
 		// Could also use annotation or "manual binding" or programmatically
 		// moving values from fields to entities before saving
 		binder.setBean(gameResult);
-
 		setVisible(true);
 
 		// A hack to ensure the whole form is visible
