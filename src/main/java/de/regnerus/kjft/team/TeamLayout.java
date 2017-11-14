@@ -38,6 +38,7 @@ public class TeamLayout {
 
 		editor.setChangeHandler(() -> {
 			editor.setVisible(false);
+			grid.setItems(repo.findAll());
 		});
 
 		layout = new VerticalLayout(actions, grid, editor);

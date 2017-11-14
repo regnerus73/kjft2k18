@@ -37,13 +37,15 @@ public class CupLayout {
 
 		grid.asSingleSelect().addValueChangeListener(e -> {
 			editor.edit(e.getValue());
-			right.setData(e.getValue().getCupResult());
+			if (e.getValue() != null)
+				right.setData(e.getValue().getCupResult());
 		});
 
 		addNewBtn.addClickListener(e -> editor.edit(new Cup("")));
 
 		editor.setChangeHandler(() -> {
 			editor.setVisible(false);
+			grid.setItems(repo.findAll());
 		});
 
 		left = new VerticalLayout(actions, grid, editor);

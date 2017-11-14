@@ -50,6 +50,7 @@ public class GameLayout {
 
 		editor.setChangeHandler(() -> {
 			editor.setVisible(false);
+			grid.setItems(gameRepository.findAll());
 		});
 
 		left = new VerticalLayout(actions, grid, editor);
