@@ -9,7 +9,6 @@ import com.vaadin.ui.VerticalLayout;
 
 import de.regnerus.kjft.game.Game;
 import de.regnerus.kjft.game.GameRepository;
-import de.regnerus.kjft.gameresult.GameResultEditor.ChangeHandler;
 import de.regnerus.kjft.team.TeamRepository;
 
 public class GameResultLayout {
@@ -31,7 +30,7 @@ public class GameResultLayout {
 
 		getLayout().addComponent(resultGrid);
 		gameResultEditor = new GameResultEditor(gameRepository, teamRepository);
-		gameResultEditor.setChangeHandler(new ChangeHandler() {
+		gameResultEditor.setChangeHandler(new de.regnerus.kjft.Editor.ChangeHandler() {
 
 			@Override
 			public void onChange() {
@@ -40,7 +39,6 @@ public class GameResultLayout {
 		});
 		getLayout().addComponent(gameResultEditor);
 
-		// Connect selected Customer to editor or hide if none is selected
 		resultGrid.asSingleSelect().addValueChangeListener(e -> {
 			gameResultEditor.editGameResult(game, e.getValue());
 		});
