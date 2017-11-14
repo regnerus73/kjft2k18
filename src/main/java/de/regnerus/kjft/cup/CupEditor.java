@@ -10,9 +10,11 @@ import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.TwinColSelect;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
+import de.regnerus.kjft.game.Game;
 import de.regnerus.kjft.game.GameRepository;
 
 /**
@@ -28,7 +30,6 @@ import de.regnerus.kjft.game.GameRepository;
 @UIScope
 public class CupEditor extends VerticalLayout {
 	private static final long serialVersionUID = 1L;
-	private GameRepository gameRepo;
 	private final CupRepository repository;
 
 	/**
@@ -44,17 +45,19 @@ public class CupEditor extends VerticalLayout {
 	Button cancel = new Button("Abbrechen");
 	Button delete = new Button("Löschen", VaadinIcons.TRASH);
 	CssLayout actions = new CssLayout(save, cancel, delete);
+	TwinColSelect<Game> games;
 
 	Binder<Cup> binder = new Binder<>(Cup.class);
 
 	@Autowired
 	public CupEditor(CupRepository repository, GameRepository gameRepo) {
 		this.repository = repository;
-		this.gameRepo = gameRepo;
+		games = new TwinColSelect<Game>(null, gameRepo.findAll());
+		games.setLeftColumnCaption("Verfügbar");
+		games.setRightColumnCaption("Ausgewählt");
 
-		addComponents(name, actions);
+		addComponents(name, games, actions);
 
-		// bind using naming convention
 		binder.bindInstanceFields(this);
 
 		// Configure and style components
@@ -66,7 +69,7 @@ public class CupEditor extends VerticalLayout {
 		// wire action buttons to save, delete and reset
 		// save.addClickListener(e -> repository.save(cup));
 		save.addClickListener(event -> {
-			cup.addGame(this.gameRepo.findAll().get(0));
+			cup.setGames(games.getValue());
 			repository.save(CupEditor.this.cup);
 		});
 
@@ -94,9 +97,6 @@ public class CupEditor extends VerticalLayout {
 		}
 		cancel.setVisible(persisted);
 
-		// Bind customer properties to similarly named fields
-		// Could also use annotation or "manual binding" or programmatically
-		// moving values from fields to entities before saving
 		binder.setBean(cup);
 
 		setVisible(true);
