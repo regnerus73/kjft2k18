@@ -31,10 +31,10 @@ public class TeamLayout {
 		grid.setColumns("id", "name");
 
 		grid.asSingleSelect().addValueChangeListener(e -> {
-			editor.editTeam(e.getValue());
+			editor.edit(e.getValue());
 		});
 
-		addNewBtn.addClickListener(e -> editor.editTeam(new Team("")));
+		addNewBtn.addClickListener(e -> editor.edit(new Team("")));
 
 		editor.setChangeHandler(() -> {
 			editor.setVisible(false);

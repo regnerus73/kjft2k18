@@ -11,7 +11,7 @@ import de.regnerus.kjft.Editor;
 
 @SpringComponent
 @UIScope
-public class TeamEditor extends Editor {
+public class TeamEditor extends Editor<Team> {
 	private static final long serialVersionUID = 1L;
 
 	private final TeamRepository repository;
@@ -31,17 +31,25 @@ public class TeamEditor extends Editor {
 		binder.bindInstanceFields(this);
 	}
 
-	public final void editTeam(Team c) {
-		if (c == null) {
+	@Override
+	public void addActionButtonClickListeners() {
+		getSaveButton().addClickListener(e -> repository.save(team));
+		getDeleteButton().addClickListener(e -> repository.delete(team));
+		getCancelButton().addClickListener(e -> edit(team));
+	}
+
+	@Override
+	public void edit(Team item) {
+		if (item == null) {
 			setVisible(false);
 			return;
 		}
-		final boolean persisted = c.getId() != null;
+		final boolean persisted = item.getId() != null;
 		if (persisted) {
 			// Find fresh entity for editing
-			team = repository.findOne(c.getId());
+			team = repository.findOne(item.getId());
 		} else {
-			team = c;
+			team = item;
 		}
 		getCancelButton().setVisible(persisted);
 
@@ -51,12 +59,5 @@ public class TeamEditor extends Editor {
 
 		getSaveButton().focus();
 		name.selectAll();
-	}
-
-	@Override
-	public void addActionButtonClickListeners() {
-		getSaveButton().addClickListener(e -> repository.save(team));
-		getDeleteButton().addClickListener(e -> repository.delete(team));
-		getCancelButton().addClickListener(e -> editTeam(team));
 	}
 }

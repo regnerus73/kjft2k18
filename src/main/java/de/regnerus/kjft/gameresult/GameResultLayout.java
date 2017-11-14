@@ -20,7 +20,7 @@ public class GameResultLayout {
 
 	public GameResultLayout(GameRepository gameRepository, TeamRepository teamRepository) {
 		this.addNewBtn = new Button("Neues Ergebnis", VaadinIcons.PLUS);
-		addNewBtn.addClickListener(event -> gameResultEditor.editGameResult(game, new GameResult()));
+		addNewBtn.addClickListener(event -> gameResultEditor.edit(new GameResult()));
 		getLayout().addComponent(addNewBtn);
 
 		resultGrid = new Grid<GameResult>();
@@ -40,7 +40,7 @@ public class GameResultLayout {
 		getLayout().addComponent(gameResultEditor);
 
 		resultGrid.asSingleSelect().addValueChangeListener(e -> {
-			gameResultEditor.editGameResult(game, e.getValue());
+			gameResultEditor.edit(e.getValue());
 		});
 	}
 

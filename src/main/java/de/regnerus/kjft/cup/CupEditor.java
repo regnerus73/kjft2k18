@@ -14,7 +14,7 @@ import de.regnerus.kjft.game.GameRepository;
 
 @SpringComponent
 @UIScope
-public class CupEditor extends Editor {
+public class CupEditor extends Editor<Cup> {
 	private static final long serialVersionUID = 1L;
 	private final CupRepository repository;
 
@@ -39,17 +39,28 @@ public class CupEditor extends Editor {
 
 	}
 
-	public final void editCup(Cup c) {
-		if (c == null) {
+	@Override
+	public void addActionButtonClickListeners() {
+		getSaveButton().addClickListener(event -> {
+			cup.setGames(games.getValue());
+			repository.save(CupEditor.this.cup);
+		});
+		getDeleteButton().addClickListener(e -> repository.delete(cup));
+		getCancelButton().addClickListener(e -> edit(cup));
+	}
+
+	@Override
+	public void edit(Cup item) {
+		if (item == null) {
 			setVisible(false);
 			return;
 		}
-		final boolean persisted = c.getId() != null;
+		final boolean persisted = item.getId() != null;
 		if (persisted) {
 			// Find fresh entity for editing
-			cup = repository.findOne(c.getId());
+			cup = repository.findOne(item.getId());
 		} else {
-			cup = c;
+			cup = item;
 		}
 		getCancelButton().setVisible(persisted);
 
@@ -59,16 +70,7 @@ public class CupEditor extends Editor {
 
 		getSaveButton().focus();
 		name.selectAll();
-	}
 
-	@Override
-	public void addActionButtonClickListeners() {
-		getSaveButton().addClickListener(event -> {
-			cup.setGames(games.getValue());
-			repository.save(CupEditor.this.cup);
-		});
-		getDeleteButton().addClickListener(e -> repository.delete(cup));
-		getCancelButton().addClickListener(e -> editCup(cup));
 	}
 
 }

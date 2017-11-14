@@ -17,7 +17,7 @@ import de.regnerus.kjft.team.TeamRepository;
 
 @SpringComponent
 @UIScope
-public class GameResultEditor extends Editor {
+public class GameResultEditor extends Editor<GameResult> {
 	private static final long serialVersionUID = 1L;
 
 	private final GameRepository gameRepository;
@@ -44,30 +44,6 @@ public class GameResultEditor extends Editor {
 		binder.forField(team).bind(GameResult::getTeam, GameResult::setTeam);
 	}
 
-	public final void editGameResult(Game game, GameResult result) {
-		this.game = game;
-		if (result == null) {
-			setVisible(false);
-			return;
-		}
-		final boolean persisted = result.getId() != null;
-		// if (persisted) {
-		// // Find fresh entity for editing
-		// // gameResult = gameRepository.findOne(c.getId());
-		// } else {
-		gameResult = result;
-		// }
-		// cancel.setVisible(true);
-
-		// Bind customer properties to similarly named fields
-		// Could also use annotation or "manual binding" or programmatically
-		// moving values from fields to entities before saving
-		binder.setBean(gameResult);
-		setVisible(true);
-
-		getSaveButton().focus();
-	}
-
 	@Override
 	public void addActionButtonClickListeners() {
 		getSaveButton().addClickListener(e -> {
@@ -79,6 +55,31 @@ public class GameResultEditor extends Editor {
 			game.removeResult(gameResult);
 			gameRepository.save(game);
 		});
-		getCancelButton().addClickListener(e -> editGameResult(null, null));
+		getCancelButton().addClickListener(e -> edit(null));
+	}
+
+	@Override
+	public void edit(GameResult item) {
+		if (item == null) {
+			setVisible(false);
+			return;
+		}
+		final boolean persisted = item.getId() != null;
+		// if (persisted) {
+		// // Find fresh entity for editing
+		// // gameResult = gameRepository.findOne(c.getId());
+		// } else {
+		gameResult = item;
+		// }
+		// cancel.setVisible(true);
+
+		// Bind customer properties to similarly named fields
+		// Could also use annotation or "manual binding" or programmatically
+		// moving values from fields to entities before saving
+		binder.setBean(gameResult);
+		setVisible(true);
+
+		getSaveButton().focus();
+
 	}
 }

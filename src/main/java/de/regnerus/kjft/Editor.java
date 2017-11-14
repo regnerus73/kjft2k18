@@ -7,7 +7,7 @@ import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
-public abstract class Editor extends VerticalLayout {
+public abstract class Editor<T> extends VerticalLayout {
 
 	Button save = new Button("Speichern", VaadinIcons.SAFE);
 	Button cancel = new Button("Abbrechen");
@@ -24,6 +24,8 @@ public abstract class Editor extends VerticalLayout {
 	}
 
 	public abstract void addActionButtonClickListeners();
+
+	public abstract void edit(T item);
 
 	public interface ChangeHandler {
 

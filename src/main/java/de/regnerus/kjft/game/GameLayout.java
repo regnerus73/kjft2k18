@@ -42,11 +42,11 @@ public class GameLayout {
 		grid.setColumns("id", "name");
 
 		grid.asSingleSelect().addValueChangeListener(e -> {
-			editor.editGame(e.getValue());
+			editor.edit(e.getValue());
 			gameResultLayout.setGame(e.getValue());
 		});
 
-		addNewBtn.addClickListener(e -> editor.editGame(new Game("")));
+		addNewBtn.addClickListener(e -> editor.edit(new Game("")));
 
 		editor.setChangeHandler(() -> {
 			editor.setVisible(false);

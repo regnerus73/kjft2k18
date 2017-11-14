@@ -36,11 +36,11 @@ public class CupLayout {
 		grid.setColumns("id", "name");
 
 		grid.asSingleSelect().addValueChangeListener(e -> {
-			editor.editCup(e.getValue());
+			editor.edit(e.getValue());
 			right.setData(e.getValue().getCupResult());
 		});
 
-		addNewBtn.addClickListener(e -> editor.editCup(new Cup("")));
+		addNewBtn.addClickListener(e -> editor.edit(new Cup("")));
 
 		editor.setChangeHandler(() -> {
 			editor.setVisible(false);

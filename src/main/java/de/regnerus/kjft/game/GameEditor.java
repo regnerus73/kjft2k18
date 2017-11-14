@@ -11,7 +11,7 @@ import de.regnerus.kjft.Editor;
 
 @SpringComponent
 @UIScope
-public class GameEditor extends Editor {
+public class GameEditor extends Editor<Game> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -30,17 +30,25 @@ public class GameEditor extends Editor {
 		binder.bindInstanceFields(this);
 	}
 
-	public final void editGame(Game c) {
-		if (c == null) {
+	@Override
+	public void addActionButtonClickListeners() {
+		getSaveButton().addClickListener(e -> repository.save(game));
+		getDeleteButton().addClickListener(e -> repository.delete(game));
+		getCancelButton().addClickListener(e -> edit(game));
+	}
+
+	@Override
+	public void edit(Game item) {
+		if (item == null) {
 			setVisible(false);
 			return;
 		}
-		final boolean persisted = c.getId() != null;
+		final boolean persisted = item.getId() != null;
 		if (persisted) {
 			// Find fresh entity for editing
-			game = repository.findOne(c.getId());
+			game = repository.findOne(item.getId());
 		} else {
-			game = c;
+			game = item;
 		}
 		getCancelButton().setVisible(persisted);
 
@@ -50,12 +58,6 @@ public class GameEditor extends Editor {
 
 		getSaveButton().focus();
 		name.selectAll();
-	}
 
-	@Override
-	public void addActionButtonClickListeners() {
-		getSaveButton().addClickListener(e -> repository.save(game));
-		getDeleteButton().addClickListener(e -> repository.delete(game));
-		getCancelButton().addClickListener(e -> editGame(game));
 	}
 }
