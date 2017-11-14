@@ -12,8 +12,6 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-import de.regnerus.kjft.team.Team;
-
 public class CupLayout {
 	private final Button addNewBtn;
 
@@ -27,7 +25,7 @@ public class CupLayout {
 
 	private VerticalLayout left;
 
-	private VerticalLayout right;
+	private CupResultLayout right;
 
 	public CupLayout(CupRepository repo, CupEditor editor) {
 		this.repo = repo;
@@ -55,6 +53,7 @@ public class CupLayout {
 		// Connect selected Customer to editor or hide if none is selected
 		grid.asSingleSelect().addValueChangeListener(e -> {
 			editor.editCup(e.getValue());
+			right.setData(e.getValue().getCupResult());
 		});
 
 		// Instantiate and edit new Customer the new button is clicked
@@ -67,8 +66,7 @@ public class CupLayout {
 		});
 
 		left = new VerticalLayout(actions, grid, editor);
-		Grid<Team> teamGrid = new Grid<Team>();
-		right = new VerticalLayout(teamGrid);
+		right = new CupResultLayout();
 		layout = new HorizontalLayout(left, right);
 
 		// Initialize listing

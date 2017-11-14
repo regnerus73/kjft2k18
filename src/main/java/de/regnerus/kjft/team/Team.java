@@ -10,7 +10,7 @@ import javax.persistence.OneToMany;
 import de.regnerus.kjft.gameresult.GameResult;
 
 @Entity
-public class Team {
+public class Team implements Comparable<Team> {
 
 	@Override
 	public int hashCode() {
@@ -74,6 +74,11 @@ public class Team {
 	@Override
 	public String toString() {
 		return name;
+	}
+
+	@Override
+	public int compareTo(Team o) {
+		return name.compareTo(o.getName());
 	}
 
 }

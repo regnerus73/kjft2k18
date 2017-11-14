@@ -68,20 +68,46 @@ public class Cup {
 	protected Cup() {
 	}
 
-	public TreeMap<Team, Integer> getScoreByTeam() {
-		TreeMap<Team, Integer> result = new TreeMap<Team, Integer>();
+	private TreeMap<Team, Integer> getScoreByTeamMap() {
+		TreeMap<Team, Integer> resultMap = new TreeMap<Team, Integer>();
 		for (Game game : games) {
 			for (Entry<Team, Integer> entry : game.getScoreByTeam().entrySet()) {
-				Integer score = result.get(entry.getKey());
+				Integer score = resultMap.get(entry.getKey());
 				if (score == null) {
 					score = entry.getValue();
 				} else {
 					score = score + entry.getValue();
 				}
-				result.put(entry.getKey(), score);
+				resultMap.put(entry.getKey(), score);
 			}
 		}
-		return result;
+		return resultMap;
+	}
+
+	public class CupResult {
+		Team team;
+		Integer result;
+
+		public CupResult(Team team, Integer result) {
+			this.team = team;
+			this.result = result;
+		}
+
+		public Team getTeam() {
+			return team;
+		}
+
+		public Integer getResult() {
+			return result;
+		}
+	}
+
+	public List<CupResult> getCupResult() {
+		List<CupResult> results = new ArrayList<>();
+		for (Entry<Team, Integer> scoreEntry : getScoreByTeamMap().entrySet()) {
+			results.add(new CupResult(scoreEntry.getKey(), scoreEntry.getValue()));
+		}
+		return results;
 	}
 
 	public Cup(String name) {
