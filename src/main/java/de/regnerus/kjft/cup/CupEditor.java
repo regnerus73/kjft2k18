@@ -36,7 +36,6 @@ public class CupEditor extends Editor<Cup> {
 		addComponents(name, games, getActionsLayout());
 
 		binder.bindInstanceFields(this);
-
 	}
 
 	@Override
@@ -70,7 +69,6 @@ public class CupEditor extends Editor<Cup> {
 
 		getSaveButton().focus();
 		name.selectAll();
-
 	}
 
 }

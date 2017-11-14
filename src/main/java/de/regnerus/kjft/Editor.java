@@ -19,6 +19,8 @@ public abstract class Editor<T> extends VerticalLayout {
 		save.setStyleName(ValoTheme.BUTTON_PRIMARY);
 		save.setClickShortcut(ShortcutAction.KeyCode.ENTER);
 
+		addActionButtonClickListeners();
+
 		setSpacing(true);
 		setVisible(false);
 	}

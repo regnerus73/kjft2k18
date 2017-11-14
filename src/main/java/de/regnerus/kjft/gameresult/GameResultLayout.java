@@ -51,6 +51,7 @@ public class GameResultLayout {
 	public void setGame(Game game) {
 		this.game = game;
 		resultGrid.setItems(this.game.getGameResults());
+		gameResultEditor.setGame(game);
 		gameResultEditor.setVisible(false);
 	}
 

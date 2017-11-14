@@ -82,4 +82,8 @@ public class GameResultEditor extends Editor<GameResult> {
 		getSaveButton().focus();
 
 	}
+
+	public void setGame(Game game) {
+		this.game = game;
+	}
 }
