@@ -32,7 +32,7 @@ public class CupLayout {
 	}
 
 	public void init() {
-		grid.setHeight(300, Unit.PIXELS);
+		grid.setHeight(150, Unit.PIXELS);
 		grid.setColumns("id", "name");
 
 		grid.asSingleSelect().addValueChangeListener(e -> {

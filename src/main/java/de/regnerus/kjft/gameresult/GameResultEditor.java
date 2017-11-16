@@ -26,6 +26,7 @@ public class GameResultEditor extends Editor<GameResult> {
 
 	NativeSelect<Team> team = new NativeSelect<>("Gruppe");
 	TextField resultField = new TextField("Ergebnis");
+	TextField fairnessScore = new TextField("Fairness");
 
 	Binder<GameResult> binder = new Binder<>(GameResult.class);
 
@@ -36,10 +37,13 @@ public class GameResultEditor extends Editor<GameResult> {
 		team.setItems(teamRepository.findAll());
 		this.gameRepository = repository;
 
-		addComponents(team, resultField, getActionsLayout());
+		addComponents(team, resultField, fairnessScore, getActionsLayout());
 
-		binder.forField(resultField).withConverter(new StringToIntegerConverter("Must enter a number"))
+		binder.forField(resultField).withConverter(new StringToIntegerConverter("Es sind nur ganze Zahlen möglich"))
 				.bind(GameResult::getResult, GameResult::setResult);
+
+		binder.forField(fairnessScore).withConverter(new StringToIntegerConverter("Es sind nur ganze Zahlen möglich"))
+				.bind(GameResult::getFairnessScore, GameResult::setFairnessScore);
 
 		binder.forField(team).bind(GameResult::getTeam, GameResult::setTeam);
 	}
@@ -70,6 +74,8 @@ public class GameResultEditor extends Editor<GameResult> {
 		// // gameResult = gameRepository.findOne(c.getId());
 		// } else {
 		gameResult = item;
+		if (gameResult.getFairnessScore() == null)
+			gameResult.setFairnessScore(0);
 		// }
 		// cancel.setVisible(true);
 

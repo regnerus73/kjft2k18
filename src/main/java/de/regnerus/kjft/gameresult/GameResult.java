@@ -57,6 +57,7 @@ public class GameResult {
 	@OneToOne(fetch = FetchType.EAGER)
 	private Team team;
 	private Integer result = 0;
+	private Integer fairnessScore = 0;
 
 	public Integer getResult() {
 		return result;
@@ -64,6 +65,14 @@ public class GameResult {
 
 	public void setResult(Integer result) {
 		this.result = result;
+	}
+
+	public Integer getFairnessScore() {
+		return fairnessScore;
+	}
+
+	public void setFairnessScore(int scrore) {
+		fairnessScore = scrore;
 	}
 
 	public GameResult() {

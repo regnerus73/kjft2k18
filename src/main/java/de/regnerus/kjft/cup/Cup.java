@@ -3,6 +3,7 @@ package de.regnerus.kjft.cup;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
@@ -84,7 +85,7 @@ public class Cup {
 		return resultMap;
 	}
 
-	public class CupResult {
+	public static class CupResult {
 		Team team;
 		Integer result;
 
@@ -102,12 +103,16 @@ public class Cup {
 		}
 	}
 
-	public List<CupResult> getCupResult() {
+	public static List<CupResult> convertScoreByTeamMap(Map<Team, Integer> map) {
 		List<CupResult> results = new ArrayList<>();
-		for (Entry<Team, Integer> scoreEntry : getScoreByTeamMap().entrySet()) {
+		for (Entry<Team, Integer> scoreEntry : map.entrySet()) {
 			results.add(new CupResult(scoreEntry.getKey(), scoreEntry.getValue()));
 		}
 		return results;
+	}
+
+	public List<CupResult> getCupResult() {
+		return convertScoreByTeamMap(getScoreByTeamMap());
 	}
 
 	public Cup(String name) {

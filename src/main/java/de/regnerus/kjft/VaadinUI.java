@@ -16,6 +16,7 @@ import de.regnerus.kjft.game.GameRepository;
 import de.regnerus.kjft.team.TeamEditor;
 import de.regnerus.kjft.team.TeamLayout;
 import de.regnerus.kjft.team.TeamRepository;
+import fairnesscup.FairnessCupLayout;
 
 @SpringUI
 public class VaadinUI extends UI {
@@ -23,6 +24,7 @@ public class VaadinUI extends UI {
 	TeamLayout teamLayout;
 	GameLayout gameLayout;
 	CupLayout cupLayout;
+	private FairnessCupLayout fairnessCupLayout;
 
 	@Autowired
 	public VaadinUI(TeamRepository teamRepo, TeamEditor teamEditor, GameRepository gameRepo, GameEditor gameEditor,
@@ -30,23 +32,17 @@ public class VaadinUI extends UI {
 		teamLayout = new TeamLayout(teamRepo, teamEditor);
 		gameLayout = new GameLayout(gameRepo, gameEditor, teamRepo);
 		cupLayout = new CupLayout(cupRepo, cupEditor);
-		// this.repo = repo;
-		// this.editor = editor;
-		// this.grid = new Grid<>(Team.class);
-		// this.filter = new TextField();
-		// this.addNewBtn = new Button("Neues Team", FontAwesome.PLUS);
+		fairnessCupLayout = new FairnessCupLayout(gameRepo);
+
 	}
 
 	@Override
 	protected void init(VaadinRequest request) {
-		// teamLayout.init();
-		// build layout
-		// HorizontalLayout mainLayout = new
-		// HorizontalLayout(teamLayout.getLayout(), gameLayout.getLayout());
 		TabSheet tabsheet = new TabSheet();
 		tabsheet.addTab(teamLayout.getLayout(), "Gruppen");
 		tabsheet.addTab(gameLayout.getLayout(), "Spiele");
 		tabsheet.addTab(cupLayout.getLayout(), "Pokale");
+		tabsheet.addTab(fairnessCupLayout.getLayout(), "Fairness-Pokal");
 
 		setContent(tabsheet);
 

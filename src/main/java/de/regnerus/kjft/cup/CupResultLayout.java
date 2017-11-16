@@ -42,7 +42,7 @@ public class CupResultLayout extends VerticalLayout {
 				return source.getResult().toString();
 			}
 		}).setCaption("Punkte");
-		;
+
 	}
 
 	public void setData(List<CupResult> results) {

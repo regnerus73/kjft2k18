@@ -27,6 +27,7 @@ public class GameResultLayout {
 		resultGrid.setHeight(300, Unit.PIXELS);
 		resultGrid.addColumn(GameResult::getTeam).setCaption("Gruppe");
 		resultGrid.addColumn(GameResult::getResult).setCaption("Ergebnis");
+		resultGrid.addColumn(GameResult::getFairnessScore).setCaption("Fairness");
 
 		getLayout().addComponent(resultGrid);
 		gameResultEditor = new GameResultEditor(gameRepository, teamRepository);
