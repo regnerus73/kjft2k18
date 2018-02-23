@@ -56,4 +56,9 @@ public class FairnessCupLayout {
 
 	private VerticalLayout layout;
 
+	public void refresh() {
+		setGridValues();
+		
+	}
+
 }

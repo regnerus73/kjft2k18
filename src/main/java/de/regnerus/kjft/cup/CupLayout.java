@@ -63,4 +63,8 @@ public class CupLayout {
 
 	private AbstractOrderedLayout layout;
 
+	public void refresh() {
+		editor.refresh();
+	}
+
 }

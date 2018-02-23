@@ -1,5 +1,8 @@
 package de.regnerus.kjft;
 
+import java.sql.SQLException;
+
+import org.h2.tools.Server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -14,8 +17,14 @@ public class Application {
 
 	private static final Logger log = LoggerFactory.getLogger(Application.class);
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
 		SpringApplication.run(Application.class);
+		try {
+			Server.createWebServer("-webPort", "8081").start();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Bean

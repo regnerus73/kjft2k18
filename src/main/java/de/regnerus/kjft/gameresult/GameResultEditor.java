@@ -32,9 +32,11 @@ public class GameResultEditor extends Editor<GameResult> {
 
 	private Game game;
 
+	private TeamRepository teamRepository;
+
 	@Autowired
 	public GameResultEditor(GameRepository repository, TeamRepository teamRepository) {
-		team.setItems(teamRepository.findAll());
+		this.teamRepository = teamRepository;
 		this.gameRepository = repository;
 
 		addComponents(team, resultField, fairnessScore, getActionsLayout());
@@ -64,6 +66,7 @@ public class GameResultEditor extends Editor<GameResult> {
 
 	@Override
 	public void edit(GameResult item) {
+		team.setItems(teamRepository.findAll());
 		if (item == null) {
 			setVisible(false);
 			return;

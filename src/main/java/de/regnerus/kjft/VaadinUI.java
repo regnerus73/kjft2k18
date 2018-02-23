@@ -1,10 +1,14 @@
 package de.regnerus.kjft;
 
+import java.sql.SQLException;
+
+import org.h2.tools.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.TabSheet;
+import com.vaadin.ui.TabSheet.SelectedTabChangeEvent;
 import com.vaadin.ui.UI;
 
 import de.regnerus.kjft.cup.CupEditor;
@@ -33,7 +37,6 @@ public class VaadinUI extends UI {
 		gameLayout = new GameLayout(gameRepo, gameEditor, teamRepo);
 		cupLayout = new CupLayout(cupRepo, cupEditor);
 		fairnessCupLayout = new FairnessCupLayout(gameRepo);
-
 	}
 
 	@Override
@@ -43,6 +46,13 @@ public class VaadinUI extends UI {
 		tabsheet.addTab(gameLayout.getLayout(), "Spiele");
 		tabsheet.addTab(cupLayout.getLayout(), "Pokale");
 		tabsheet.addTab(fairnessCupLayout.getLayout(), "Fairness-Pokal");
+		tabsheet.addSelectedTabChangeListener(new TabSheet.SelectedTabChangeListener() {
+
+			@Override
+			public void selectedTabChange(SelectedTabChangeEvent event) {
+				fairnessCupLayout.refresh();
+				cupLayout.refresh();
+			}});
 
 		setContent(tabsheet);
 
