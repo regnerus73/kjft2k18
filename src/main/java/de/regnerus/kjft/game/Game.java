@@ -21,31 +21,46 @@ public class Game {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + (id == null ? 0 : id.hashCode());
+		result = prime * result + (name == null ? 0 : name.hashCode());
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
-		Game other = (Game) obj;
+		}
+		final Game other = (Game) obj;
 		if (id == null) {
-			if (other.id != null)
+			if (other.id != null) {
 				return false;
-		} else if (!id.equals(other.id))
+			}
+		} else if (!id.equals(other.id)) {
 			return false;
+		}
 		if (name == null) {
-			if (other.name != null)
+			if (other.name != null) {
 				return false;
-		} else if (!name.equals(other.name))
+			}
+		} else if (!name.equals(other.name)) {
 			return false;
+		}
 		return true;
+	}
+
+	public boolean isBiggerIsBetter() {
+		return biggerIsBetter;
+	}
+
+	public void setBiggerIsBetter(boolean biggerIsBetter) {
+		this.biggerIsBetter = biggerIsBetter;
 	}
 
 	@Id
@@ -53,6 +68,8 @@ public class Game {
 	private Long id;
 
 	private String name;
+
+	private boolean biggerIsBetter = true;
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
 	private List<GameResult> results;
@@ -66,12 +83,17 @@ public class Game {
 	}
 
 	public Map<Team, Integer> getScoreByTeam() {
-		results.sort(new GameResult.ResultComparator());
-		HashMap<Team, Integer> scoreByTeam = new HashMap<Team, Integer>();
+		if (isBiggerIsBetter()) {
+			results.sort(new GameResult.ResultComparator().reversed());
+		} else {
+			results.sort(new GameResult.ResultComparator());
+		}
+
+		final HashMap<Team, Integer> scoreByTeam = new HashMap<>();
 
 		int score = results.size() + 1;
 		for (int i = 0; i < results.size(); i++) {
-			GameResult gameResult = results.get(i);
+			final GameResult gameResult = results.get(i);
 			scoreByTeam.put(gameResult.getTeam(), score);
 			score--;
 		}

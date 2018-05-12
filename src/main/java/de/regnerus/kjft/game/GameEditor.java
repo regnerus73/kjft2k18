@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.vaadin.data.Binder;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.UIScope;
+import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.TextField;
 
 import de.regnerus.kjft.Editor;
@@ -21,12 +22,15 @@ public class GameEditor extends Editor<Game> {
 
 	TextField name = new TextField("Name");
 
+	CheckBox biggerIsBetter = new CheckBox(
+			"Größerer Wert ist besser (Ankreuzen wenn Punkte vergeben werden, nicht wenn Zeit gemessen wird)");
+
 	Binder<Game> binder = new Binder<>(Game.class);
 
 	@Autowired
 	public GameEditor(GameRepository repository) {
 		this.repository = repository;
-		addComponents(name, getActionsLayout());
+		addComponents(name, biggerIsBetter, getActionsLayout());
 		binder.bindInstanceFields(this);
 	}
 
