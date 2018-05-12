@@ -92,10 +92,16 @@ public class Game {
 		final HashMap<Team, Integer> scoreByTeam = new HashMap<>();
 
 		int score = results.size() + 1;
+		Integer previousResult = null;
 		for (int i = 0; i < results.size(); i++) {
 			final GameResult gameResult = results.get(i);
-			scoreByTeam.put(gameResult.getTeam(), score);
+			if (gameResult.getResult() == previousResult) {
+				scoreByTeam.put(gameResult.getTeam(), score + 1);
+			} else {
+				scoreByTeam.put(gameResult.getTeam(), score);
+			}
 			score--;
+			previousResult = gameResult.getResult();
 		}
 		return scoreByTeam;
 
