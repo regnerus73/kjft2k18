@@ -28,7 +28,7 @@ public class TeamLayout {
 
 	public void init() {
 		grid.setHeight(300, Unit.PIXELS);
-		grid.setColumns("id", "name");
+		grid.setColumns("name");
 
 		grid.asSingleSelect().addValueChangeListener(e -> {
 			editor.edit(e.getValue());

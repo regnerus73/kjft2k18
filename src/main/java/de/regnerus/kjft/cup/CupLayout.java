@@ -33,12 +33,13 @@ public class CupLayout {
 
 	public void init() {
 		grid.setHeight(150, Unit.PIXELS);
-		grid.setColumns("id", "name");
+		grid.setColumns("name");
 
 		grid.asSingleSelect().addValueChangeListener(e -> {
 			editor.edit(e.getValue());
-			if (e.getValue() != null)
+			if (e.getValue() != null) {
 				right.setData(e.getValue().getCupResult());
+			}
 		});
 
 		addNewBtn.addClickListener(e -> editor.edit(new Cup("")));
