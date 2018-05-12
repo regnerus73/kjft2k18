@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.data.ValueProvider;
+import com.vaadin.shared.data.sort.SortDirection;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
@@ -14,14 +15,14 @@ import de.regnerus.kjft.cup.Cup.CupResult;
 public class CupResultLayout extends VerticalLayout {
 	private static final long serialVersionUID = 1L;
 
-	Grid<CupResult> resultGrid = new Grid<CupResult>();
+	Grid<CupResult> resultGrid = new Grid<>();
 
 	@Autowired
 	public CupResultLayout() {
-		Label label = new Label("Ergebnisse");
+		final Label label = new Label("Ergebnisse");
 		addComponents(label, resultGrid);
 
-		resultGrid.setHeight(300, Unit.PIXELS);
+		resultGrid.setHeight(800, Unit.PIXELS);
 
 		resultGrid.addColumn(new ValueProvider<CupResult, String>() {
 
@@ -33,7 +34,7 @@ public class CupResultLayout extends VerticalLayout {
 			}
 		}).setCaption("Team");
 
-		resultGrid.addColumn(new ValueProvider<CupResult, String>() {
+		resultGrid.sort(resultGrid.addColumn(new ValueProvider<CupResult, String>() {
 
 			private static final long serialVersionUID = 1417808520409095655L;
 
@@ -41,7 +42,7 @@ public class CupResultLayout extends VerticalLayout {
 			public String apply(CupResult source) {
 				return source.getResult().toString();
 			}
-		}).setCaption("Punkte");
+		}).setCaption("Punkte"), SortDirection.DESCENDING);
 
 	}
 

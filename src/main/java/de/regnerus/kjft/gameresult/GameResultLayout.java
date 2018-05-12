@@ -2,6 +2,7 @@ package de.regnerus.kjft.gameresult;
 
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.Sizeable.Unit;
+import com.vaadin.shared.data.sort.SortDirection;
 import com.vaadin.ui.AbstractOrderedLayout;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;
@@ -13,8 +14,8 @@ import de.regnerus.kjft.team.TeamRepository;
 
 public class GameResultLayout {
 	private final Button addNewBtn;
-	private AbstractOrderedLayout layout = new VerticalLayout();
-	private Grid<GameResult> resultGrid;
+	private final AbstractOrderedLayout layout = new VerticalLayout();
+	private final Grid<GameResult> resultGrid;
 	private GameResultEditor gameResultEditor;
 	private Game game;
 
@@ -23,10 +24,10 @@ public class GameResultLayout {
 		addNewBtn.addClickListener(event -> gameResultEditor.edit(new GameResult()));
 		getLayout().addComponent(addNewBtn);
 
-		resultGrid = new Grid<GameResult>();
+		resultGrid = new Grid<>();
 		resultGrid.setHeight(300, Unit.PIXELS);
 		resultGrid.addColumn(GameResult::getTeam).setCaption("Gruppe");
-		resultGrid.addColumn(GameResult::getResult).setCaption("Ergebnis");
+		resultGrid.sort(resultGrid.addColumn(GameResult::getResult).setCaption("Ergebnis"), SortDirection.DESCENDING);
 		resultGrid.addColumn(GameResult::getFairnessScore).setCaption("Fairness");
 
 		getLayout().addComponent(resultGrid);
