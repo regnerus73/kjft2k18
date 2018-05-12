@@ -1,5 +1,7 @@
 package de.regnerus.kjft.gameresult;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.data.Binder;
@@ -32,7 +34,7 @@ public class GameResultEditor extends Editor<GameResult> {
 
 	private Game game;
 
-	private TeamRepository teamRepository;
+	private final TeamRepository teamRepository;
 
 	@Autowired
 	public GameResultEditor(GameRepository repository, TeamRepository teamRepository) {
@@ -53,9 +55,11 @@ public class GameResultEditor extends Editor<GameResult> {
 	@Override
 	public void addActionButtonClickListeners() {
 		getSaveButton().addClickListener(e -> {
-			if (gameResult.getId() == null)
+			if (gameResult.getId() == null) {
 				game.addResult(gameResult);
+			}
 			gameRepository.save(game);
+			edit(new GameResult());
 		});
 		getDeleteButton().addClickListener(e -> {
 			game.removeResult(gameResult);
@@ -66,30 +70,33 @@ public class GameResultEditor extends Editor<GameResult> {
 
 	@Override
 	public void edit(GameResult item) {
-		team.setItems(teamRepository.findAll());
 		if (item == null) {
 			setVisible(false);
 			return;
 		}
-		final boolean persisted = item.getId() != null;
-		// if (persisted) {
-		// // Find fresh entity for editing
-		// // gameResult = gameRepository.findOne(c.getId());
-		// } else {
-		gameResult = item;
-		if (gameResult.getFairnessScore() == null)
-			gameResult.setFairnessScore(0);
-		// }
-		// cancel.setVisible(true);
 
-		// Bind customer properties to similarly named fields
-		// Could also use annotation or "manual binding" or programmatically
-		// moving values from fields to entities before saving
+		fillTeamPopup(item.getId() == null);
+
+		gameResult = item;
+		if (gameResult.getFairnessScore() == null) {
+			gameResult.setFairnessScore(0);
+		}
+
 		binder.setBean(gameResult);
 		setVisible(true);
 
 		getSaveButton().focus();
 
+	}
+
+	private void fillTeamPopup(boolean hideTeamsWithExistingResult) {
+		final List<Team> teams = teamRepository.findAll();
+		if (hideTeamsWithExistingResult) {
+			for (final GameResult gameResult2 : game.getGameResults()) {
+				teams.remove(gameResult2.getTeam());
+			}
+		}
+		team.setItems(teams);
 	}
 
 	public void setGame(Game game) {
