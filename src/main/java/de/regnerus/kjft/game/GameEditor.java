@@ -22,8 +22,7 @@ public class GameEditor extends Editor<Game> {
 
 	TextField name = new TextField("Name");
 
-	CheckBox biggerIsBetter = new CheckBox(
-			"Größerer Wert ist besser (Ankreuzen wenn Punkte vergeben werden, nicht wenn Zeit gemessen wird)");
+	CheckBox biggerIsBetter = new CheckBox("Größerer Wert ist besser");
 
 	Binder<Game> binder = new Binder<>(Game.class);
 
