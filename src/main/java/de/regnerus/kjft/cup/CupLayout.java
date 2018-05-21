@@ -38,7 +38,7 @@ public class CupLayout {
 		grid.asSingleSelect().addValueChangeListener(e -> {
 			editor.edit(e.getValue());
 			if (e.getValue() != null) {
-				right.setData(e.getValue().getCupResult());
+				right.setData(e.getValue().getName(), e.getValue().getCupResult());
 			}
 		});
 

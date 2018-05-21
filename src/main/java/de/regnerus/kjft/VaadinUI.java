@@ -1,8 +1,5 @@
 package de.regnerus.kjft;
 
-import java.sql.SQLException;
-
-import org.h2.tools.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.server.VaadinRequest;
@@ -41,18 +38,20 @@ public class VaadinUI extends UI {
 
 	@Override
 	protected void init(VaadinRequest request) {
-		TabSheet tabsheet = new TabSheet();
+		final TabSheet tabsheet = new TabSheet();
 		tabsheet.addTab(teamLayout.getLayout(), "Gruppen");
 		tabsheet.addTab(gameLayout.getLayout(), "Spiele");
 		tabsheet.addTab(cupLayout.getLayout(), "Pokale");
 		tabsheet.addTab(fairnessCupLayout.getLayout(), "Fairness-Pokal");
+
 		tabsheet.addSelectedTabChangeListener(new TabSheet.SelectedTabChangeListener() {
 
 			@Override
 			public void selectedTabChange(SelectedTabChangeEvent event) {
 				fairnessCupLayout.refresh();
 				cupLayout.refresh();
-			}});
+			}
+		});
 
 		setContent(tabsheet);
 
