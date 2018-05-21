@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.data.Binder;
+import com.vaadin.data.HasValue.ValueChangeEvent;
+import com.vaadin.data.HasValue.ValueChangeListener;
 import com.vaadin.data.converter.StringToIntegerConverter;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.UIScope;
@@ -50,11 +52,24 @@ public class GameResultEditor extends Editor<GameResult> {
 				.bind(GameResult::getFairnessScore, GameResult::setFairnessScore);
 
 		binder.forField(team).bind(GameResult::getTeam, GameResult::setTeam);
+
+		team.addValueChangeListener(new ValueChangeListener<Team>() {
+
+			@Override
+			public void valueChange(ValueChangeEvent<Team> event) {
+				getSaveButton().setEnabled(event.getValue() != null);
+			}
+
+		});
 	}
 
 	@Override
 	public void addActionButtonClickListeners() {
 		getSaveButton().addClickListener(e -> {
+			if (gameResult.getTeam() == null) {
+				return;
+			}
+
 			if (gameResult.getId() == null) {
 				game.addResult(gameResult);
 			}
