@@ -39,7 +39,7 @@ public class VaadinUI extends UI {
 	@Override
 	protected void init(VaadinRequest request) {
 		final TabSheet tabsheet = new TabSheet();
-		tabsheet.addTab(teamLayout.getLayout(), "Gruppen");
+		tabsheet.addTab(teamLayout.getLayout(), "Teams");
 		tabsheet.addTab(gameLayout.getLayout(), "Spiele");
 		tabsheet.addTab(cupLayout.getLayout(), "Pokale");
 		tabsheet.addTab(fairnessCupLayout.getLayout(), "Fairness-Pokal");
