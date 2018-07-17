@@ -49,7 +49,7 @@ public class GameEditor extends Editor<Game> {
 		final boolean persisted = item.getId() != null;
 		if (persisted) {
 			// Find fresh entity for editing
-			game = repository.findOne(item.getId());
+			game = repository.findById(item.getId()).orElse(null);
 		} else {
 			game = item;
 		}

@@ -1,7 +1,5 @@
 package de.regnerus.kjft.team;
 
-import com.vaadin.icons.VaadinIcons;
-import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.HorizontalLayout;
@@ -20,14 +18,14 @@ public class TeamLayout {
 		this.repo = repo;
 		this.editor = editor;
 		this.grid = new Grid<>(Team.class);
-		this.addNewBtn = new Button("Neue Gruppe", VaadinIcons.PLUS);
+		this.addNewBtn = new Button("Neue Gruppe"/* , VaadinIcons.PLUS */);
 		this.actions = new HorizontalLayout(addNewBtn);
 
 		init();
 	}
 
 	public void init() {
-		grid.setHeight(300, Unit.PIXELS);
+		grid.setHeight("300px");// 300, Unit.PIXELS);
 		grid.setColumns("name");
 
 		grid.asSingleSelect().addValueChangeListener(e -> {

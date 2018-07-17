@@ -47,7 +47,7 @@ public class TeamEditor extends Editor<Team> {
 		final boolean persisted = item.getId() != null;
 		if (persisted) {
 			// Find fresh entity for editing
-			team = repository.findOne(item.getId());
+			team = repository.findById(item.getId()).orElse(null);
 		} else {
 			team = item;
 		}

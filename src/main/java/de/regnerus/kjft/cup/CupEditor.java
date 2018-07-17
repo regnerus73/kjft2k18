@@ -32,7 +32,7 @@ public class CupEditor extends Editor<Cup> {
 	public CupEditor(CupRepository repository, GameRepository gameRepo) {
 		this.repository = repository;
 		this.gameRepo = gameRepo;
-		games = new TwinColSelect<Game>(null, gameRepo.findAll());
+		games = new TwinColSelect<>(null, gameRepo.findAll());
 		games.setLeftColumnCaption("Verfügbar");
 		games.setRightColumnCaption("Ausgewählt");
 
@@ -60,7 +60,7 @@ public class CupEditor extends Editor<Cup> {
 		final boolean persisted = item.getId() != null;
 		if (persisted) {
 			// Find fresh entity for editing
-			cup = repository.findOne(item.getId());
+			cup = repository.findById(item.getId()).orElse(null);
 		} else {
 			cup = item;
 		}
@@ -73,7 +73,7 @@ public class CupEditor extends Editor<Cup> {
 		getSaveButton().focus();
 		name.selectAll();
 	}
-	
+
 	public void refresh() {
 		games.setDataProvider(DataProvider.ofCollection(gameRepo.findAll()));
 	}

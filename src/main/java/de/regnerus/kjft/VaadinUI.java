@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
+import com.vaadin.ui.LoginForm;
+import com.vaadin.ui.LoginForm.LoginEvent;
+import com.vaadin.ui.LoginForm.LoginListener;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.TabSheet.SelectedTabChangeEvent;
 import com.vaadin.ui.UI;
@@ -39,10 +42,23 @@ public class VaadinUI extends UI {
 	@Override
 	protected void init(VaadinRequest request) {
 		final TabSheet tabsheet = new TabSheet();
-		tabsheet.addTab(teamLayout.getLayout(), "Teams");
-		tabsheet.addTab(gameLayout.getLayout(), "Spiele");
-		tabsheet.addTab(cupLayout.getLayout(), "Pokale");
-		tabsheet.addTab(fairnessCupLayout.getLayout(), "Fairness-Pokal");
+		final LoginForm form = new LoginForm();
+		form.addLoginListener(new LoginListener() {
+
+			@Override
+			public void onLogin(LoginEvent event) {
+				if (event.getLoginParameter("username").equals("foo")
+						&& event.getLoginParameter("password").equals("bar")) {
+					tabsheet.addTab(teamLayout.getLayout(), "Teams");
+					tabsheet.addTab(gameLayout.getLayout(), "Spiele");
+					tabsheet.addTab(cupLayout.getLayout(), "Pokale");
+					tabsheet.addTab(fairnessCupLayout.getLayout(), "Fairness-Pokal");
+					tabsheet.removeComponent(form);
+				}
+
+			}
+		});
+		tabsheet.addTab(form, "Login");
 
 		tabsheet.addSelectedTabChangeListener(new TabSheet.SelectedTabChangeListener() {
 
