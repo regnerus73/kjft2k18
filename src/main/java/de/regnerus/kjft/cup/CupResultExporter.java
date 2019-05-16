@@ -29,9 +29,9 @@ public class CupResultExporter {
 		sb.append('\n');
 
 		int lastUniqueIndex = 0;
-		Integer lastResult = null;
+		Double lastResult = null;
 		for (final CupResult result : results) {
-			if (result.getResult() != lastResult) {
+			if (result.getResult().equals(lastResult)) {
 				lastUniqueIndex++;
 				lastResult = result.getResult();
 			}

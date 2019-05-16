@@ -37,10 +37,10 @@ public class FairnessCupLayout {
 	}
 
 	private void setGridValues() {
-		Map<Team, Integer> fairnessByTeam = new HashMap<>();
+		Map<Team, Double> fairnessByTeam = new HashMap<>();
 		for (Game game : gameRepo.findAll()) {
 			for (GameResult gameResult : game.getGameResults()) {
-				Integer fairnessScore = fairnessByTeam.getOrDefault(gameResult.getTeam(), 0);
+				Double fairnessScore = fairnessByTeam.getOrDefault(gameResult.getTeam(), 0.0);
 				fairnessByTeam.put(gameResult.getTeam(), gameResult.getFairnessScore() + fairnessScore);
 			}
 		}

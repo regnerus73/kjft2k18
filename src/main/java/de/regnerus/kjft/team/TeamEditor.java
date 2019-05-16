@@ -1,5 +1,9 @@
 package de.regnerus.kjft.team;
 
+import com.vaadin.data.converter.StringToDoubleConverter;
+import com.vaadin.data.converter.StringToIntegerConverter;
+import com.vaadin.data.converter.StringToLongConverter;
+import de.regnerus.kjft.gameresult.GameResult;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.data.Binder;
@@ -19,6 +23,7 @@ public class TeamEditor extends Editor<Team> {
 	private Team team;
 
 	TextField name = new TextField("Name");
+	TextField averageAge = new TextField("Durchschnittsalter");
 
 	Binder<Team> binder = new Binder<>(Team.class);
 
@@ -26,9 +31,11 @@ public class TeamEditor extends Editor<Team> {
 	public TeamEditor(TeamRepository repository) {
 		this.repository = repository;
 
-		addComponents(name, getActionsLayout());
-
-		binder.bindInstanceFields(this);
+		addComponents(name, averageAge, getActionsLayout());
+		binder.forField(averageAge).withConverter(new StringToDoubleConverter("Es sind nur Zahlen möglich"))
+				.bind(Team::getAverageAge, Team::setAverageAge);
+		binder.forField(name).bind(Team::getName, Team::setName);
+		//binder.bindInstanceFields(this);
 	}
 
 	@Override
@@ -52,6 +59,9 @@ public class TeamEditor extends Editor<Team> {
 			team = item;
 		}
 		getCancelButton().setVisible(persisted);
+
+		if(team.getAverageAge() == null)
+			team.setAverageAge(0.0);
 
 		binder.setBean(team);
 

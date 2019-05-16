@@ -42,23 +42,23 @@ public class VaadinUI extends UI {
 	@Override
 	protected void init(VaadinRequest request) {
 		final TabSheet tabsheet = new TabSheet();
-		final LoginForm form = new LoginForm();
+		/*final LoginForm form = new LoginForm();
 		form.addLoginListener(new LoginListener() {
 
 			@Override
 			public void onLogin(LoginEvent event) {
 				if (event.getLoginParameter("username").equals("foo")
-						&& event.getLoginParameter("password").equals("bar")) {
+						&& event.getLoginParameter("password").equals("bar")) {*/
 					tabsheet.addTab(teamLayout.getLayout(), "Teams");
 					tabsheet.addTab(gameLayout.getLayout(), "Spiele");
 					tabsheet.addTab(cupLayout.getLayout(), "Pokale");
 					tabsheet.addTab(fairnessCupLayout.getLayout(), "Fairness-Pokal");
-					tabsheet.removeComponent(form);
-				}
+					//tabsheet.removeComponent(form);
+		/*		}
 
 			}
 		});
-		tabsheet.addTab(form, "Login");
+		tabsheet.addTab(form, "Login");*/
 
 		tabsheet.addSelectedTabChangeListener(new TabSheet.SelectedTabChangeListener() {
 

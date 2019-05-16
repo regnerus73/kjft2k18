@@ -2,6 +2,7 @@ package de.regnerus.kjft.gameresult;
 
 import java.util.List;
 
+import com.vaadin.data.converter.StringToDoubleConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.data.Binder;
@@ -45,10 +46,10 @@ public class GameResultEditor extends Editor<GameResult> {
 
 		addComponents(team, resultField, fairnessScore, getActionsLayout());
 
-		binder.forField(resultField).withConverter(new StringToIntegerConverter("Es sind nur ganze Zahlen möglich"))
+		binder.forField(resultField).withConverter(new StringToDoubleConverter("Es sind nur ganze Zahlen möglich"))
 				.bind(GameResult::getResult, GameResult::setResult);
 
-		binder.forField(fairnessScore).withConverter(new StringToIntegerConverter("Es sind nur ganze Zahlen möglich"))
+		binder.forField(fairnessScore).withConverter(new StringToDoubleConverter("Es sind nur ganze Zahlen möglich"))
 				.bind(GameResult::getFairnessScore, GameResult::setFairnessScore);
 
 		binder.forField(team).bind(GameResult::getTeam, GameResult::setTeam);

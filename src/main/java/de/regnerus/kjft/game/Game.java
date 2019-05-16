@@ -82,21 +82,21 @@ public class Game {
 		return results;
 	}
 
-	public Map<Team, Integer> getScoreByTeam() {
+	public Map<Team, Double> getScoreByTeam() {
 		if (isBiggerIsBetter()) {
 			results.sort(new GameResult.ResultComparator().reversed());
 		} else {
 			results.sort(new GameResult.ResultComparator());
 		}
 
-		final HashMap<Team, Integer> scoreByTeam = new HashMap<>();
+		final HashMap<Team, Double> scoreByTeam = new HashMap<>();
 
-		int score = results.size() + 1;
-		Integer previousResult = null;
+		double score = results.size() + 1;
+		Double previousResult = null;
 		for (int i = 0; i < results.size(); i++) {
 			final GameResult gameResult = results.get(i);
 			if (gameResult.getResult() == previousResult) {
-				scoreByTeam.put(gameResult.getTeam(), score + 1);
+				scoreByTeam.put(gameResult.getTeam(), score + 1.0);
 			} else {
 				scoreByTeam.put(gameResult.getTeam(), score);
 			}

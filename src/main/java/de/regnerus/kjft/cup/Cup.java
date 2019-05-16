@@ -69,11 +69,11 @@ public class Cup {
 	protected Cup() {
 	}
 
-	private TreeMap<Team, Integer> getScoreByTeamMap() {
-		TreeMap<Team, Integer> resultMap = new TreeMap<Team, Integer>();
+	private TreeMap<Team, Double> getScoreByTeamMap() {
+		TreeMap<Team, Double> resultMap = new TreeMap<>();
 		for (Game game : games) {
-			for (Entry<Team, Integer> entry : game.getScoreByTeam().entrySet()) {
-				Integer score = resultMap.get(entry.getKey());
+			for (Entry<Team, Double> entry : game.getScoreByTeam().entrySet()) {
+				Double score = resultMap.get(entry.getKey());
 				if (score == null) {
 					score = entry.getValue();
 				} else {
@@ -87,9 +87,9 @@ public class Cup {
 
 	public static class CupResult {
 		Team team;
-		Integer result;
+		Double result;
 
-		public CupResult(Team team, Integer result) {
+		public CupResult(Team team, Double result) {
 			this.team = team;
 			this.result = result;
 		}
@@ -98,14 +98,14 @@ public class Cup {
 			return team;
 		}
 
-		public Integer getResult() {
+		public Double getResult() {
 			return result;
 		}
 	}
 
-	public static List<CupResult> convertScoreByTeamMap(Map<Team, Integer> map) {
+	public static List<CupResult> convertScoreByTeamMap(Map<Team, Double> map) {
 		List<CupResult> results = new ArrayList<>();
-		for (Entry<Team, Integer> scoreEntry : map.entrySet()) {
+		for (Entry<Team, Double> scoreEntry : map.entrySet()) {
 			results.add(new CupResult(scoreEntry.getKey(), scoreEntry.getValue()));
 		}
 		return results;
@@ -147,6 +147,6 @@ public class Cup {
 	}
 
 	public Set<Game> getGames() {
-		return new HashSet<Game>(games);
+		return new HashSet<>(games);
 	}
 }
