@@ -35,7 +35,7 @@ public class GameEditor extends Editor<Game> {
 
 	@Override
 	public void addActionButtonClickListeners() {
-		getSaveButton().addClickListener(e -> repository.save(game));
+		getSaveButton().addClickListener(e -> game = repository.save(game));
 		getDeleteButton().addClickListener(e -> repository.delete(game));
 		getCancelButton().addClickListener(e -> edit(game));
 	}

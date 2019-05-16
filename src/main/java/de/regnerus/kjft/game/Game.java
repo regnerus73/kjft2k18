@@ -1,8 +1,6 @@
 package de.regnerus.kjft.game;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -72,29 +70,31 @@ public class Game {
 	private boolean biggerIsBetter = true;
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
-	private List<GameResult> results;
+	private Set<GameResult> results;
 
 	public void addResult(GameResult result) {
 		results.add(result);
 	}
 
-	public List<GameResult> getGameResults() {
+	public Set<GameResult> getGameResults() {
 		return results;
 	}
 
 	public Map<Team, Double> getScoreByTeam() {
+		ArrayList<GameResult> resultList = new ArrayList<>();
+		resultList.addAll(results);
 		if (isBiggerIsBetter()) {
-			results.sort(new GameResult.ResultComparator().reversed());
+			resultList.sort(new GameResult.ResultComparator().reversed());
 		} else {
-			results.sort(new GameResult.ResultComparator());
+			resultList.sort(new GameResult.ResultComparator());
 		}
 
 		final HashMap<Team, Double> scoreByTeam = new HashMap<>();
 
-		double score = results.size() + 1;
+		double score = resultList.size();
 		Double previousResult = null;
-		for (int i = 0; i < results.size(); i++) {
-			final GameResult gameResult = results.get(i);
+		for (int i = 0; i < resultList.size(); i++) {
+			final GameResult gameResult = resultList.get(i);
 			if (gameResult.getResult() == previousResult) {
 				scoreByTeam.put(gameResult.getTeam(), score + 1.0);
 			} else {

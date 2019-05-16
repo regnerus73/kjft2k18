@@ -74,12 +74,12 @@ public class GameResultEditor extends Editor<GameResult> {
 			if (gameResult.getId() == null) {
 				game.addResult(gameResult);
 			}
-			gameRepository.save(game);
+			game = gameRepository.save(game);
 			edit(new GameResult());
 		});
 		getDeleteButton().addClickListener(e -> {
 			game.removeResult(gameResult);
-			gameRepository.save(game);
+			game = gameRepository.save(game);
 		});
 		getCancelButton().addClickListener(e -> edit(null));
 	}
@@ -108,8 +108,8 @@ public class GameResultEditor extends Editor<GameResult> {
 	private void fillTeamPopup(boolean hideTeamsWithExistingResult) {
 		final List<Team> teams = teamRepository.findAll();
 		if (hideTeamsWithExistingResult) {
-			for (final GameResult gameResult2 : game.getGameResults()) {
-				teams.remove(gameResult2.getTeam());
+			for (final GameResult result : game.getGameResults()) {
+				teams.remove(result.getTeam());
 			}
 		}
 		team.setItems(teams);

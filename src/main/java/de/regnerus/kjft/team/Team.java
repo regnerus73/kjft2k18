@@ -1,11 +1,9 @@
 package de.regnerus.kjft.team;
 
 import java.util.List;
+import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import de.regnerus.kjft.gameresult.GameResult;
 
@@ -20,36 +18,26 @@ public class Team implements Comparable<Team> {
 
 	private Double averageAge = 0.0;
 
-	@OneToMany
-	private List<GameResult> gameResults;
-
 	public Double getAverageAge() {
 		return averageAge;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Team team = (Team) o;
+        return Objects.equals(id, team.id) &&
+                Objects.equals(name, team.name) &&
+                Objects.equals(averageAge, team.averageAge);
+    }
 
-		Team team = (Team) o;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, averageAge);
+    }
 
-		if (!id.equals(team.id)) return false;
-		if (!name.equals(team.name)) return false;
-		if (averageAge != null ? !averageAge.equals(team.averageAge) : team.averageAge != null) return false;
-		return gameResults.equals(team.gameResults);
-	}
-
-	@Override
-	public int hashCode() {
-		int result = id.hashCode();
-		result = 31 * result + name.hashCode();
-		result = 31 * result + (averageAge != null ? averageAge.hashCode() : 0);
-		result = 31 * result + gameResults.hashCode();
-		return result;
-	}
-
-	public void setAverageAge(Double avergeAge) {
+    public void setAverageAge(Double avergeAge) {
 		this.averageAge = avergeAge;
 	}
 

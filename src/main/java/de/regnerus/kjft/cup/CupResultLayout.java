@@ -25,7 +25,7 @@ public class CupResultLayout extends VerticalLayout {
 	@Autowired
 	public CupResultLayout() {
 		final Label label = new Label("Ergebnisse");
-		final Button exportButton = new Button("Expotieren");
+		final Button exportButton = new Button("Exportieren");
 		exportButton.addClickListener(new Button.ClickListener() {
 
 			@Override
@@ -61,7 +61,6 @@ public class CupResultLayout extends VerticalLayout {
 				return source.getResult().toString();
 			}
 		}).setCaption("Punkte"), SortDirection.DESCENDING);
-
 	}
 
 	public void setData(String name, List<CupResult> results) {

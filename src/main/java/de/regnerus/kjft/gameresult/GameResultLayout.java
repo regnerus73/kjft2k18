@@ -34,6 +34,7 @@ public class GameResultLayout {
 
 			@Override
 			public void onChange() {
+				game = gameRepository.findById(game.getId()).orElse(null);
 				resultGrid.setItems(game.getGameResults());
 			}
 		});

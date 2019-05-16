@@ -31,9 +31,8 @@ public class CupResultExporter {
 		int lastUniqueIndex = 0;
 		Double lastResult = null;
 		for (final CupResult result : results) {
-			if (result.getResult().equals(lastResult)) {
+			if (!result.getResult().equals(lastResult)) {
 				lastUniqueIndex++;
-				lastResult = result.getResult();
 			}
 
 			sb.append(lastUniqueIndex);
@@ -42,6 +41,8 @@ public class CupResultExporter {
 			sb.append(',');
 			sb.append(result.getResult());
 			sb.append('\n');
+
+			lastResult = result.getResult();
 		}
 
 		pw.write(sb.toString());

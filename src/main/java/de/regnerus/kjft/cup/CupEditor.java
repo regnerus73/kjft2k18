@@ -45,7 +45,7 @@ public class CupEditor extends Editor<Cup> {
 	public void addActionButtonClickListeners() {
 		getSaveButton().addClickListener(event -> {
 			cup.setGames(games.getValue());
-			repository.save(CupEditor.this.cup);
+			CupEditor.this.cup = repository.save(CupEditor.this.cup);
 		});
 		getDeleteButton().addClickListener(e -> repository.delete(cup));
 		getCancelButton().addClickListener(e -> edit(cup));

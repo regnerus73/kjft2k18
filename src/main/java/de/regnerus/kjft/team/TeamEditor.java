@@ -40,7 +40,7 @@ public class TeamEditor extends Editor<Team> {
 
 	@Override
 	public void addActionButtonClickListeners() {
-		getSaveButton().addClickListener(e -> repository.save(team));
+		getSaveButton().addClickListener(e -> team = repository.save(team));
 		getDeleteButton().addClickListener(e -> repository.delete(team));
 		getCancelButton().addClickListener(e -> edit(team));
 	}
