@@ -49,7 +49,7 @@ public class VaadinUI extends UI {
 			public void onLogin(LoginEvent event) {
 				if (event.getLoginParameter("username").equals("foo")
 						&& event.getLoginParameter("password").equals("bar")) {*/
-					tabsheet.addTab(teamLayout.getLayout(), "Teams");
+					tabsheet.addTab(teamLayout.getLayout(), "Gruppen");
 					tabsheet.addTab(gameLayout.getLayout(), "Spiele");
 					tabsheet.addTab(cupLayout.getLayout(), "Pokale");
 					tabsheet.addTab(fairnessCupLayout.getLayout(), "Fairness-Pokal");
