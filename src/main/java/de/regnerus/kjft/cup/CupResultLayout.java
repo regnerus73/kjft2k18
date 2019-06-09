@@ -52,13 +52,13 @@ public class CupResultLayout extends VerticalLayout {
 			}
 		}).setCaption("Team");
 
-		resultGrid.sort(resultGrid.addColumn(new ValueProvider<CupResult, String>() {
+		resultGrid.sort(resultGrid.addColumn(new ValueProvider<CupResult, Double>() {
 
 			private static final long serialVersionUID = 1417808520409095655L;
 
 			@Override
-			public String apply(CupResult source) {
-				return source.getResult().toString();
+			public Double apply(CupResult source) {
+				return source.getResult();
 			}
 		}).setCaption("Punkte"), SortDirection.DESCENDING);
 	}
